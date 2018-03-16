@@ -39,3 +39,29 @@ class Car implements CarInterface
         }
     }
 }
+class Car2{
+    public $distance;
+    public $engine;
+    public function __construct($distance, $engine)
+    {
+        $this->distance = $distance;
+        $this->engine = $engine;
+    }
+}
+class Engine{
+    public $speed;
+    public function __construct($speed)
+    {
+        $this->speed = $speed;
+    }
+    public function on(){
+        echo "Двинатель включен.";
+    }
+    public function off(){
+        echo "Двигатель выключен.";
+    }
+    public function cooling($t){
+        echo "Включилось охлождение двигателя";
+        return $t - 10;
+    }
+}

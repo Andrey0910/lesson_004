@@ -16,6 +16,25 @@ echo "<p>", $car->go(), "</p>";
 echo "<p>", $car->stop('Нетралка'), "</p>";
 echo "</div>";
 // конец вывода первого задания
+// начало вывода второг задания
+echo "<div class='jumbotron'>";
+echo "<h5>", "Задание 2", "</h5>";
+$distance = 200;
+$speed = 10;
+$engine = new Engine($speed);
+$car2 = new Car2($distance, $engine);
+echo "<p>", $car2->engine->on(), "</p>";
+for ($i=0, $t=0; $i < $car2->distance; $i+=10, $t+=5){
+    if ($t == 90){
+        echo "Температурп двигателя - ".$t.". ";
+        $t = $car2->engine->cooling($t);
+        echo "<br>";
+    }
+}
+echo "<br>";
+echo "<p>", $car2->engine->off(), "</p>";
+echo "</div>";
+// конец вывода второг задания
 //Возвращает содержимое буфера вывода
 $content = ob_get_contents();
 //Очищаем и отключаем буферизацию вывода
