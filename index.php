@@ -6,8 +6,14 @@ ob_start();
 // начало вывода первого задания
 echo "<div class='jumbotron'>";
 echo "<h5>", "Задание 1", "</h5>";
-$car = new Car();
+$distance = 200;
+$speed = 10;
+$way = ['Вперед', 'Назад', 'Нетралка'];
+$car = new Car($distance, $speed, $way);
+echo "<p>", $car->start(), "</p>";
+echo "<p>", $car->onWay('Вперед'), "</p>";
 echo "<p>", $car->go(), "</p>";
+echo "<p>", $car->stop('Нетралка'), "</p>";
 echo "</div>";
 // конец вывода первого задания
 //Возвращает содержимое буфера вывода

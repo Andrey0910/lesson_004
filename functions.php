@@ -6,23 +6,36 @@ class Car implements CarInterface
 {
     public $distance;
     public $speed;
-    private $way = ['Впред', 'Назад'];
+    private $way;
     public  $direction;
-    public function __construct($distanc = 0, $speed = 0, $direction = 'Впред')
+    public function __construct($distanc, $speed, $way)
     {
         $this->distanc = $distanc;
         $this->speed = $speed;
-        if (in_array($direction, $this->way)){
-            $this->direction = $direction;
+        $this->way = $way;
+    }
+    public function start(){
+        echo "Включил двигатель";
+    }
+    public function onWay($direction){
+        if (in_array($direction, $this->way)) {
+            echo "Влключил передачу - " . $direction;
         }
         else{
-            echo "Напарвление движения задано не верно.";
-            return;
+            echo "У машины нет такой передачи.";
         }
     }
     public function go()
     {
-        echo $this->direction;
+        echo "Двигаюсь в соответствии с параметрами двигателя, при необходимости включаю охлаждение.";
     }
-
+    public function stop($direction){
+        echo "Выключаем двигатель.", "<br>";
+        if (in_array($direction, $this->way)) {
+            echo "Влключил передачу - " . $direction;
+        }
+        else{
+            echo "У машины нет такой передачи.";
+        }
+    }
 }
