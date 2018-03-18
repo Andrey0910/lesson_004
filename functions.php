@@ -1,6 +1,6 @@
 <?php
 interface CarInterface{
-    public function go();
+    public function go($distance);
 }
 class Car implements CarInterface
 {
@@ -8,57 +8,52 @@ class Car implements CarInterface
     public $speed;
     private $way;
     public  $direction;
-    public function __construct($distanc, $speed, $way)
-    {
-        $this->distanc = $distanc;
-        $this->speed = $speed;
-        $this->way = $way;
-    }
-    public function start(){
-        echo "Включил двигатель";
-    }
-    public function onWay($direction){
-        if (in_array($direction, $this->way)) {
-            echo "Влключил передачу - " . $direction;
-        }
-        else{
-            echo "У машины нет такой передачи.";
-        }
-    }
-    public function go()
-    {
-        echo "Двигаюсь в соответствии с параметрами двигателя, при необходимости включаю охлаждение.";
-    }
-    public function stop($direction){
-        echo "Выключаем двигатель.", "<br>";
-        if (in_array($direction, $this->way)) {
-            echo "Влключил передачу - " . $direction;
-        }
-        else{
-            echo "У машины нет такой передачи.";
-        }
-    }
-}
-class Car2{
-    public $distance;
-    public $engine;
-    public function __construct($distance, $engine)
+    public $transmission;
+    public $season;
+    use Engine, AutomaticTransmission, ManualTransmission, Wheels;
+    public function __construct($distance, $speed, $way, $transmission, $season)
     {
         $this->distance = $distance;
-        $this->engine = $engine;
+        $this->speed = $speed;
+        $this->way = $way;
+        $this->transmission = $transmission;
+        $this->season = $season;
+        echo "Расстояние - ".$this->distance;
+        echo "<br>", "Скорость - ".$this->speed;
+        echo "<br>", "Коробка передач - ". $this->transmission;
+        echo "<br>",  $this->rubber($season);
+    }
+    public function start(){
+        $this->on();
+    }
+    public function onWay(){
+        if($this->transmission == "automatic"){
+            $this->driveAutomatic();
+        }
+        elseif($this->transmission == "manual"){
+            $this->driveManual($this->speed);
+        }
+    }
+    public function go($distance)
+    {
+        for ($i=0, $t=0; $i < $this->distance; $i+=10, $t+=5){
+            if ($t == 90){
+            echo "Температурп двигателя - ".$t.". ";
+            $t = $this->cooling($t);
+            echo "<br>";
+            }
+        }
+    }
+    public function stop(){
+        $this->off();
     }
 }
-class Engine{
-    public $speed;
-    public function __construct($speed)
-    {
-        $this->speed = $speed;
-    }
+trait Engine{
     public function on(){
-        echo "Двинатель включен.";
+        echo "<br>", "Включил двигатель.";
     }
     public function off(){
-        echo "Двигатель выключен.";
+        echo "Выключил двигатель.";
     }
     public function cooling($t){
         echo "Включилось охлождение двигателя";
@@ -74,40 +69,39 @@ class Car3{
         $this->transmission = $transmission;
     }
 }
-abstract class Transmission{
-    abstract public function drive($speed);
-    abstract public function reverse();
-}
-class AutomaticTransmission extends Transmission{
-    public function __construct()
+trait AutomaticTransmission{
+    public function driveAutomatic()
     {
-        echo "<p>", "Автоматическая коробка передач.", "</p>";
+        echo "Включил на каробке передач режим езды в перед.";
     }
-    public function drive($speed = null)
+    public function reverseAutomatic()
     {
-        echo "Режим езды в перед.";
-    }
-    public function reverse()
-    {
-        echo "Режим езды назад.";
+        echo "Включил на каробке передач режим езды назад.";
     }
 }
-class ManualTransmission extends Transmission{
-    public function __construct()
-    {
-        echo "<p>", "Ручная коробка передач.", "</p>";
-    }
-    public function drive($speed)
+trait ManualTransmission{
+    public function driveManual($speed)
     {
         if ($speed <= 20){
-            echo "Включена первая передача.";
+            echo "Включил на каробке передач первая передача.";
         }
         else{
-            echo "Включена вторая передача.";
+            echo "Включил на каробке передач вторая передача.";
         }
     }
-    public function reverse()
+    public function reverseManual()
     {
-        echo "Включена задняя передача.";
+        echo "Включил на каробке передач задняя передача.";
     }
+}
+trait Wheels{
+    public function rubber($season){
+        if ($season == "winter"){
+            echo "Одета зимняя резина.";
+        }
+        else {
+            echo "Одета леняя резина.";
+        }
+    }
+
 }

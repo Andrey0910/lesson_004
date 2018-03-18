@@ -5,52 +5,19 @@ require_once("functions.php");
 ob_start();
 // начало вывода первого задания
 echo "<div class='jumbotron'>";
-echo "<h5>", "Задание 1", "</h5>";
+echo "<h5>", "Задание 1, 2, 3, 4", "</h5>";
 $distance = 200;
 $speed = 10;
 $way = ['Вперед', 'Назад', 'Нетралка'];
-$car = new Car($distance, $speed, $way);
+$transmission = ["automatic", "manual"];
+$season = ["summer", "winter"];
+$car = new Car($distance, $speed, $way, $transmission[0], $season[1]);
 echo "<p>", $car->start(), "</p>";
-echo "<p>", $car->onWay('Вперед'), "</p>";
-echo "<p>", $car->go(), "</p>";
-echo "<p>", $car->stop('Нетралка'), "</p>";
+echo "<p>", $car->onWay(), "</p>";
+echo "<p>", $car->go($distance), "</p>";
+echo "<p>", $car->stop(), "</p>";
 echo "</div>";
 // конец вывода первого задания
-// начало вывода второг задания
-echo "<div class='jumbotron'>";
-echo "<h5>", "Задание 2", "</h5>";
-$distance = 200;
-$speed = 10;
-$engine = new Engine($speed);
-$car2 = new Car2($distance, $engine);
-echo "<p>", $car2->engine->on(), "</p>";
-for ($i=0, $t=0; $i < $car2->distance; $i+=10, $t+=5){
-    if ($t == 90){
-        echo "Температурп двигателя - ".$t.". ";
-        $t = $car2->engine->cooling($t);
-        echo "<br>";
-    }
-}
-echo "<br>";
-echo "<p>", $car2->engine->off(), "</p>";
-echo "</div>";
-// конец вывода второг задания
-// начало вывода третьего задания
-echo "<div class='jumbotron'>";
-echo "<h5>", "Задание 3", "</h5>";
-$speed = 30;
-$way = ['Вперед', 'Назад', 'Нетралка'];
-$transmission = new AutomaticTransmission();
-$car3 = new Car3($speed, $transmission);
-echo "<p>", $car3->transmission->drive(), "</p>";
-echo "<p>", $car3->transmission->reverse(), "</p>";
-echo "<br>", "<br>";
-$transmission = new ManualTransmission();
-$car3 = new Car3($speed, $transmission);
-echo "<p>", $car3->transmission->drive($car3->speed), "</p>";
-echo "<p>", $car3->transmission->reverse(), "</p>";
-echo "</div>";
-// конец вывода третьего задания
 //Возвращает содержимое буфера вывода
 $content = ob_get_contents();
 //Очищаем и отключаем буферизацию вывода
