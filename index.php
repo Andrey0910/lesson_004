@@ -35,6 +35,22 @@ echo "<br>";
 echo "<p>", $car2->engine->off(), "</p>";
 echo "</div>";
 // конец вывода второг задания
+// начало вывода третьего задания
+echo "<div class='jumbotron'>";
+echo "<h5>", "Задание 3", "</h5>";
+$speed = 30;
+$way = ['Вперед', 'Назад', 'Нетралка'];
+$transmission = new AutomaticTransmission();
+$car3 = new Car3($speed, $transmission);
+echo "<p>", $car3->transmission->drive(), "</p>";
+echo "<p>", $car3->transmission->reverse(), "</p>";
+echo "<br>", "<br>";
+$transmission = new ManualTransmission();
+$car3 = new Car3($speed, $transmission);
+echo "<p>", $car3->transmission->drive($car3->speed), "</p>";
+echo "<p>", $car3->transmission->reverse(), "</p>";
+echo "</div>";
+// конец вывода третьего задания
 //Возвращает содержимое буфера вывода
 $content = ob_get_contents();
 //Очищаем и отключаем буферизацию вывода

@@ -65,3 +65,49 @@ class Engine{
         return $t - 10;
     }
 }
+class Car3{
+    public $speed;
+    public $transmission;
+    public function __construct($speed, $transmission)
+    {
+        $this->speed = $speed;
+        $this->transmission = $transmission;
+    }
+}
+abstract class Transmission{
+    abstract public function drive($speed);
+    abstract public function reverse();
+}
+class AutomaticTransmission extends Transmission{
+    public function __construct()
+    {
+        echo "<p>", "Автоматическая коробка передач.", "</p>";
+    }
+    public function drive($speed = null)
+    {
+        echo "Режим езды в перед.";
+    }
+    public function reverse()
+    {
+        echo "Режим езды назад.";
+    }
+}
+class ManualTransmission extends Transmission{
+    public function __construct()
+    {
+        echo "<p>", "Ручная коробка передач.", "</p>";
+    }
+    public function drive($speed)
+    {
+        if ($speed <= 20){
+            echo "Включена первая передача.";
+        }
+        else{
+            echo "Включена вторая передача.";
+        }
+    }
+    public function reverse()
+    {
+        echo "Включена задняя передача.";
+    }
+}
